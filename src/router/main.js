@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
 import counter from '../components/Count/count.vue'
+import userDetail from '@/components/userInfo/userDetail.vue'
+
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -18,6 +20,11 @@ const router = createRouter({
             path: '/counter',
             name: 'counter',
             component: counter
+        },
+        {
+            path: '/userDetail',
+            name: 'userDetail',
+            component: userDetail
         }
     ]
 })

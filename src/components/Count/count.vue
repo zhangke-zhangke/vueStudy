@@ -7,20 +7,6 @@
 </template>
   
 <script setup>
-//   export default {
-//     name: 'Counter',    
-//     data() {
-//       return {
-//         count: 0
-//       };
-//     },
-//     methods: {
-//       increment() {
-//         this.count++;
-//       }
-//     }
-//   };
-
     import { ref } from 'vue'
 
     const count = ref(0)
@@ -28,7 +14,6 @@
     function increment() {
         count.value++
     }
-
 </script>
   
 <!-- <style scoped lang="scss"> -->

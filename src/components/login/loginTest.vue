@@ -34,22 +34,29 @@
         </el-row>
         <el-row>
           <el-form-item >
-            <el-button @click="handleLogin">登录</el-button>
-            <div class="loginTpic">点击完成登录</div>
+            <el-button :plain="true" @click="userLogin">登录</el-button>
           </el-form-item>
           <el-form-item v-if="error">
             <div class="error">{{ error }}</div>
           </el-form-item>
-
         </el-row>
       </el-form>
     </div>
+    <div class="loginTpic">点击完成登录</div>
   </template>
   
 <script setup>
   import { ref, reactive, onMounted } from 'vue';
   import axios from 'axios';
+  import { useRoute, useRouter } from 'vue-router';
+  import { ElMessage } from 'element-plus';
+  import { useUserStore } from '@/stores/userStore.js';
   
+  const store = useUserStore()
+
+  const route = useRoute()
+  const router = useRouter()
+
   const loginParams = reactive({
     'userName': '',
     'password': '',
@@ -61,20 +68,43 @@
   })
 
   const user = ref(null)
-  const loading = ref(true)
+  const loading = ref(null)
   const error = ref(null)
+  const total = ref(0)
 
-  const handleLogin = async() => {
-    try {
-      const response = await axios.post('http://172.16.30.107:5000/login', loginParams)
-      alert(response.data.msg)
-    } catch (err) {
-      alert(err)
-      error.value = err.response.data.msg ? err.response.data.msg : '登录失败';
-      alert(error.value);
-    } finally {
-      alert('finally')
-    }
+  // const handleLogin = async() => {
+  //   try {
+  //     const response = await axios.post('http://172.16.30.107:5000/login', loginParams)
+  //     alert(response.data.msg)
+  //   } catch (err) {
+  //     alert(err)
+  //     error.value = err.response.data.msg ? err.response.data.msg : '登录失败';
+  //     alert(error.value);
+  //   } finally {
+  //     alert('finally')
+  //   }
+
+  function userLogin (){
+    loading.value = true
+    axios.post('http://172.16.30.107:5000/login', loginParams)
+    .then((res) => {
+      // loginParams.userName = res.data.data.username || '',
+      // loginParams.password = res.data.data.password || '',
+      // total.value = res.data.data.total || 0
+      
+      store.setUserName(loginParams.userName)
+
+      // 登录成功跳转页面路由
+      ElMessage.success(`用户：${store.userName}，欢迎回来！`)
+      router.push({ name: 'userDetail'})
+    })
+    .catch(() => {
+      ElMessage.error('用户名或密码错误！')
+      loading.value = false
+    })
+    .finally(() => {
+      loading.value = false
+    })
   }
 
 </script>
