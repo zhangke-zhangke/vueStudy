@@ -1,23 +1,7 @@
 <template>
-    <!-- <div class="login-container">
-
-      <form @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="username">用户名:</label>
-          <input type="text" id="username" v-model="loginParams.userName" required />
-        </div>
-        <div class="form-group">
-          <label for="password">密码:</label>
-          <input type="password" id="password" v-model="loginParams.password" required />
-        </div>
-        <button type="submit">登录</button>
-        <div v-if="error" class="error">{{ error }}</div>
-      </form>
-    </div> -->
-  
     <div class="login-container">
-      <h2>登录</h2>
       <el-form v-bind:model=loginParams v-bind:rules="rules" ref="loginForm" label-width="80px">
+        <h2 class="title">登录</h2>
         <el-row>
           <el-col>
             <el-form-item label="用户名" prop="userName">
@@ -42,7 +26,6 @@
         </el-row>
       </el-form>
     </div>
-    <div class="loginTpic">点击完成登录</div>
   </template>
   
 <script setup>
@@ -88,10 +71,6 @@
     loading.value = true
     axios.post('http://172.16.30.107:5000/login', loginParams)
     .then((res) => {
-      // loginParams.userName = res.data.data.username || '',
-      // loginParams.password = res.data.data.password || '',
-      // total.value = res.data.data.total || 0
-      
       store.setUserName(loginParams.userName)
 
       // 登录成功跳转页面路由
@@ -108,82 +87,46 @@
   }
 
 </script>
-  
 <style scoped>
-  html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5; /* 添加背景颜色 */
+  height: 100vh;
 }
 
-
-.login-container {
-  /* align-items: center; */
-  /* text-align:center; */
-  width: 400px; /* 设置容器的最大宽度 */
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
-  background-color: white; /* 背景颜色 */
-  border-radius: 8px; /* 圆角效果 */
-}
-
-h2 {
+.title{
+  margin: 0px auto 30px auto;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-  .el-form-item {
-    margin-bottom: 15px;
-    width: auto; /* 设置表单项的宽度 */
-  }
+.el-form {
+  width: 400px; 
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: white; 
+  border-radius: 10px; 
+}
 
-  .el-input__inner {
-    width: 100%;
-  }
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
 
-  /* 确保按钮居中 */
-  .el-form-item__content {
-      display: flex;
-      justify-content: center;
-    }
+.el-form-item {
+  margin-bottom: 15px;
+}
 
-  .el-button {
-    width: 100%;
-  }
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center; /* 中心对齐错误信息 */
+}
 
-  .loginTpic{
-    display: none;
-    background-color: aqua;
-    width: 100%;
-  }
+.el-button {
+  width: 100%;
+}
 
-  /* 鼠标移动到el-button元素时 */
-  .el-button:hover{
-    color: white;
-    background-color: green;
-  }
-
-  /* 必须使loginTpic这个元素和el-button元素为兄弟元素或子元素才生效 */
-  .el-button:hover + .loginTpic{
-    display: block;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
+.el-button:hover {
+  color: white;
+  background-color: green;
+}
 </style>
-  

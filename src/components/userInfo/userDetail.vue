@@ -3,11 +3,12 @@
         <p>用户名：{{ userInfo.userName }}</p>
         <p>年龄：{{ userInfo.age }}</p>
         <p>邮箱：{{ userInfo.userEmail }}</p>
+        <span v-if="isAdmin">您当前登录的是admin</span>
     </div>
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount, reactive, ref } from 'vue'
+import { onMounted, onBeforeMount, reactive, ref, computed } from 'vue'
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { useUserStore } from '@/stores/userStore';
@@ -44,5 +45,19 @@ function getUserInfo(){
         })
 }
 
+// function isAdmin(){
+//     userInfo.userName == 'admin' ? true : false
+// }
+
+const isAdmin = computed(() => {
+    return store.userName == 'admin' ? true : false
+})
+
 
 </script>
+
+
+<style scoped>
+
+
+</style>
