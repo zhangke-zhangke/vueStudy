@@ -18,7 +18,7 @@
         </el-row>
         <el-row>
           <el-form-item >
-            <el-button :plain="true" @click="userLogin">登录</el-button>
+            <el-button :plain="true" :loading="loading" @click="userLogin">登录</el-button>
           </el-form-item>
           <el-form-item v-if="error">
             <div class="error">{{ error }}</div>
@@ -75,7 +75,7 @@
 
       // 登录成功跳转页面路由
       ElMessage.success(`用户：${store.userName}，欢迎回来！`)
-      router.push({ name: 'userDetail'})
+      router.push({ name: 'handle'})
     })
     .catch(() => {
       ElMessage.error('用户名或密码错误！')
@@ -88,13 +88,28 @@
 
 </script>
 <style scoped>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;               /* 确保 html 和 body 高度为100% */
+  background-color: #f0f0f0; /* 测试背景颜色 */
+}
 
 .login-container {
+  position: absolute;          /* 使用绝对定位 */
+  top: 50%;                   /* 垂直居中 */
+  left: 50%;                  /* 水平居中 */
+  transform: translate(-50%, -80%); /* 通过负的偏移实现绝对居中 */
+  width: 100%;                /* 视口宽度 */
+  max-width: 400px;          /* 设置最大宽度 */
+}
+
+/* .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
+} */
 
 .title{
   margin: 0px auto 30px auto;

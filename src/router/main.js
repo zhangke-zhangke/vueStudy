@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
 import counter from '../components/Count/count.vue'
 import userDetail from '@/components/userInfo/userDetail.vue'
+import HomeHandle from '@/components/handle/homeHandle.vue'
+import ExportContent from '@/views/word/exportContent.vue'
 
 
 const router = createRouter({
@@ -25,6 +27,16 @@ const router = createRouter({
             path: '/userDetail',
             name: 'userDetail',
             component: userDetail
+        },
+        {
+            path: '/handle',
+            name: 'handle',
+            component: HomeHandle
+        },
+        {
+            path: '/word',
+            name: 'word',
+            component: () => import('../views/word/exportContent.vue')
         }
     ]
 })
