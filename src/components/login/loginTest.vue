@@ -72,6 +72,7 @@
     axios.post('http://172.16.30.107:5000/login', loginParams)
     .then((res) => {
       store.setUserName(loginParams.userName)
+      console
 
       // 登录成功跳转页面路由
       ElMessage.success(`用户：${store.userName}，欢迎回来！`)
@@ -96,7 +97,7 @@ body, html {
 }
 
 .login-container {
-  position: absolute;          /* 使用绝对定位 */
+  position: fixed;          /* 使用绝对定位 */
   top: 50%;                   /* 垂直居中 */
   left: 50%;                  /* 水平居中 */
   transform: translate(-50%, -80%); /* 通过负的偏移实现绝对居中 */

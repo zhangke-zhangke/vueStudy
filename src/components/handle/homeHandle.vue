@@ -1,11 +1,10 @@
 <template>
     <!-- <img src="@/assets/imgs/logo.ico" alt="logo"> -->
-    <div>
+    <div id="mainPage">
         <div id="nav-menu">
             <el-menu 
             :default-active="'2'" 
             @select="handleSelect"
-            class="defind-menu" 
             mode="horizontal"
             text-color="#fff"
             active-text-color="#ffd04b"
@@ -36,11 +35,12 @@
                     <p>反馈</p>
                     <p>联系方式</p>
                 </div> -->
-                <el-menu-item index="7" target="_blank" class="right-item">关于</el-menu-item>
+                <a href="http://www.baidu.com" class="right-item">关于</a>
             </el-menu>
         </div>
         <div id="mainContent">
-            <routerView></routerView>
+            <!-- <routerView></routerView> -->
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -52,28 +52,35 @@
 </script>
 
 <style scoped>
-#nav-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
+#mainPage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
 
-.defind-menu {
-  display: flex;
+    #nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        /* z-index: 1000; */
+    }
+
+    #mainContent {
+        flex: auto;
+        margin-top: 60px; /* 根据菜单高度调整 */
+        padding: 20px;
+        min-height: calc(100vh - 60px); /* 确保内容区域占满剩余空间 */
+    }
+
 }
 
 .right-item {
-  margin-right: 0;
+  margin-right: 0px;
   margin-left: auto; /* 将“关于”按钮推到右侧 */
 }
 
-#mainContent {
-  margin-top: 60px; /* 根据菜单高度调整 */
-  padding: 20px;
-  min-height: calc(100vh - 60px); /* 确保内容区域占满剩余空间 */
-}
 
 
 </style>
