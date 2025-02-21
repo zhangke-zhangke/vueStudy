@@ -28,8 +28,11 @@
                 <el-menu-item index="/mp3">mp3</el-menu-item>
                 <el-menu-item index="/translate">translate</el-menu-item>
 
-                <el-menu-item index="/about" class="right-item">关于</el-menu-item>
+                <div class="right-menu">
+                <el-menu-item index="/record">历史记录</el-menu-item>
+                <el-menu-item index="/about">关于</el-menu-item>
                 <!-- <a href="http://www.baidu.com" class="right-item">关于</a> -->
+              </div>
             </el-menu>
         </el-header>
 
@@ -106,8 +109,10 @@ function handleLogoClick(){
     min-height: calc(100vh - 60px); /* 确保内容区域占满剩余空间 */
 }
 
-.right-item {
-  margin-right: 0px;
+.right-menu {
+  display: flex;
+  margin-left: auto;
+  margin-right: 40px;
 }
 
 .el-menu{
