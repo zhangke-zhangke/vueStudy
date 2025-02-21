@@ -1,86 +1,117 @@
 <template>
-    <!-- <img src="@/assets/imgs/logo.ico" alt="logo"> -->
-    <div id="mainPage">
-        <div id="nav-menu">
+    <el-container class="layout-container">
+        <el-header class="header">
             <el-menu 
-            :default-active="'2'" 
-            @select="handleSelect"
+            :default-active="activeRoutePath"
             mode="horizontal"
-            text-color="#fff"
+            text-color="black"
             active-text-color="#ffd04b"
-            background-color="#545c64"
+            background-color="white"
             unique-opened
             menu-trigger="hover"
             router
             collapse-transition
             >
+                <img src="@/assets/imgs/logo.ico" alt="logo" @click="handleLogoClick">
                 <el-menu-item index="/word">word</el-menu-item>
-                <el-sub-menu index="2">
+                <el-sub-menu index="/excel">
                     <template #title>excel</template>
-                    <el-menu-item index="21">menu2-1</el-menu-item>
-                    <el-menu-item index="22">menu2-2</el-menu-item>
-                    <el-menu-item index="23">menu2-3</el-menu-item>
+                    <el-menu-item index="/excel1">menu2-1</el-menu-item>
+                    <el-menu-item index="/excel2">menu2-2</el-menu-item>
+                    <el-menu-item index="/excel3">menu2-3</el-menu-item>
                 </el-sub-menu>
-                <el-menu-item index="3" target="_blank">pdf</el-menu-item>
-                <el-sub-menu index="4">
+                <el-menu-item index="/pdf">pdf</el-menu-item>
+                <el-sub-menu index="/img">
                     <template #title>img</template>
-                    <el-menu-item index="41">remove_watermark</el-menu-item>
+                    <el-menu-item index="/img1">remove_watermark</el-menu-item>
                 </el-sub-menu>
-                <el-menu-item index="5" target="_blank">mp3</el-menu-item>
-                <el-menu-item index="6" target="_blank">translate</el-menu-item>
+                <el-menu-item index="/mp3">mp3</el-menu-item>
+                <el-menu-item index="/translate">translate</el-menu-item>
 
-                <!-- <div class="me">
-                    <p>关于</p>
-                    <p>帮助</p>
-                    <p>反馈</p>
-                    <p>联系方式</p>
-                </div> -->
-                <a href="http://www.baidu.com" class="right-item">关于</a>
+                <el-menu-item index="/about" class="right-item">关于</el-menu-item>
+                <!-- <a href="http://www.baidu.com" class="right-item">关于</a> -->
             </el-menu>
-        </div>
-        <div id="mainContent">
-            <!-- <routerView></routerView> -->
-            <router-view></router-view>
-        </div>
-    </div>
+        </el-header>
+
+
+        <el-container>
+            <el-main>
+                <div id="mainContent">
+                    <router-view v-if="activeRoutePath !== '/handle'"></router-view>
+                    <div v-else>
+                        <h1>欢迎使用在线officeTools工具</h1>
+                        <p>officeTools是一个基于vue的在线工具集，主要用于处理各种文件，如word、excel、pdf、图片、音频、视频等。</p>
+                        <p>欢迎使用，有任何问题请联系作者：</p>
+                        <p>作者：张可乐</p>
+                    </div>
+                </div>
+            </el-main>
+        </el-container>
+    </el-container> 
 </template>
 
+
 <script setup>
-    import { RouterView } from 'vue-router';
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute()
+const router = useRouter()
+
+
+const activeRoutePath = ref('/')
+
+watch(
+    () => route.path,
+    (newPath) => {
+        console.log(`route发生变化，新的路径是:${newPath}`)
+        activeRoutePath.value = newPath;
+    },
+    { immediate: true }
+)
+
+
+function handleLogoClick(){
+    console.log('logo被点击了')
+    router.push('/handle')
+}
 
 
 </script>
 
 <style scoped>
-#mainPage {
+.layout-container {
+    height: 100vh;
+}
+
+.header {
+    margin-top: 0px;
+    padding: 0px;
+    height: 60px;
     width: 100%;
-    height: 100%;
     display: flex;
-    overflow: hidden;
+}
 
-    #nav-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        /* z-index: 1000; */
-    }
+.el-menu-item{
+    padding-left: 30px;
+}
+.el-sub-menu {
+    padding-left: 30px;
+}
 
-    #mainContent {
-        flex: auto;
-        margin-top: 60px; /* 根据菜单高度调整 */
-        padding: 20px;
-        min-height: calc(100vh - 60px); /* 确保内容区域占满剩余空间 */
-    }
-
+.mainContent {
+    height: 100%;
+    margin-top: 60px; /* 根据菜单高度调整 */
+    padding: 20px;
+    min-height: calc(100vh - 60px); /* 确保内容区域占满剩余空间 */
 }
 
 .right-item {
   margin-right: 0px;
-  margin-left: auto; /* 将“关于”按钮推到右侧 */
 }
 
-
+.el-menu{
+    width: 100%;
+}
 
 </style>
