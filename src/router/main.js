@@ -37,7 +37,24 @@ const router = createRouter({
             path: '/word',
             name: 'word',
             component: () => import('../views/word/exportContent.vue')
-        }
+        },
+        {
+            path: '/blog',
+            name: 'blog',
+            component: () => import('../views/blogMainPage/index.vue'),
+            children: [
+                {
+                    path: 'detail',
+                    name: 'detail',
+                    component: () => import('@/components/blogChildComponents/blogDetail/blogDetail.vue')
+                }
+            ]
+        },
+        {
+            path: '/blogDetail',
+            name: 'blogDetail',
+            component: () => import('@/components/blogChildComponents/blogDetail/blogDetailMainPage.vue')
+        },
     ]
 })
 
