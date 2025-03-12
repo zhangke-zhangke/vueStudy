@@ -3,6 +3,8 @@ import counter from '../components/Count/count.vue'
 import userDetail from '@/components/userInfo/userDetail.vue'
 import HomeHandle from '@/components/handle/homeHandle.vue'
 import ExportContent from '@/views/word/exportContent.vue'
+import blog from '@/components/blog/index.vue'
+import layout from '@/components/layout/index.vue'
 
 
 const router = createRouter({
@@ -38,23 +40,29 @@ const router = createRouter({
             name: 'word',
             component: () => import('../views/word/exportContent.vue')
         },
+        // 博客架子
         {
             path: '/blog',
             name: 'blog',
-            component: () => import('../views/blogMainPage/index.vue'),
-            children: [
-                {
-                    path: 'detail',
-                    name: 'detail',
-                    component: () => import('@/components/blogChildComponents/blogDetail/blogDetail.vue')
-                }
-            ]
+            component: blog,
         },
         {
             path: '/blogDetail',
             name: 'blogDetail',
-            component: () => import('@/components/blogChildComponents/blogDetail/blogDetailMainPage.vue')
+            component: () => import('@/components/blog/components/blogDetailInfo.vue')
         },
+        // layout布局，固定导航栏，浏览子路由
+        {
+            path: '/layout',
+            name: 'layout',
+            component: layout,
+            redirect: {path: '/layout/defalut'},
+            children: [{
+                path: '/defalut',
+                name: 'layoutDefalut',
+                component: ''
+            }]
+        }
     ]
 })
 

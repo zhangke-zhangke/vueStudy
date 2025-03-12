@@ -2,7 +2,7 @@
 
 
 <template>
-    <blogDetail>
+    <blogDetailTemplate>
         <template #blogDetailTitle>
             <h1 class="title">{{ '我是插槽标题值' }}</h1>
         </template>
@@ -14,7 +14,7 @@
         <template #blogDetailFooter>
             <p class="title">{{ '我是插槽页脚值' }}</p>
         </template>
-    </blogDetail>
+    </blogDetailTemplate>
 </template>
 
 
@@ -24,7 +24,7 @@
 
 
 <script setup>
-import blogDetail from './blogDetail.vue';
+import blogDetailTemplate from './blogDetailTemplate.vue';
 
 
 import { ref, onMounted } from 'vue'

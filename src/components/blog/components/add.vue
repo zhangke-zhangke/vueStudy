@@ -1,11 +1,11 @@
 <template>
-    <el-dialog title="添加文章" v-model="dialogVisible" width="50%">
+    <el-dialog title="添加文章" v-model="dialogVisible" width="50%" :before-close="handleCancel">
         <el-form :model="form" ref="formRef" :rules="formRules" label-width="80px">
-            <el-form-item label="标题" prop="content">
-                <el-input v-model="form.title" placeholder="请输入标题"></el-input>
+            <el-form-item label="标题" prop="title">
+                <el-input v-model.trim="form.title" placeholder="请输入标题"></el-input>
             </el-form-item>
             <el-form-item label="内容" prop="content">
-                <el-input type="textarea" v-model="form.content" placeholder="请输入内容"></el-input>
+                <el-input type="textarea" v-model.trim="form.content" placeholder="请输入内容"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -18,17 +18,27 @@
 
 <script setup>
 
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 
 
 const dialogVisible = ref(true)
 
 const emits = defineEmits(['submit', 'closeAdd'])
+// const props = defineProps(['dialogAddBlog'])
+// let dialogVisible = computed({
+//     get(){
+//         return props.dialogAddBlog
+//     },
+//     set(val) {
+//         emits('update:dialogAddBlog', val)
+//     }
+// })
+
 
 // el-form的ref属性绑定，用于formRef.value.validate验证
 const formRef = ref(null)
 // el-form的:model属性绑定
-const form = reactive({
+const form = ref({
     title: '',
     content: ''
 })
@@ -45,7 +55,11 @@ const formRules = {
 function handleSubmit() {
     formRef.value.validate((valid) => {
         if (valid) {
-            emits('submit', ...form.value)
+            const { title, content } = form.value
+            emits('submit', {
+                'title': title,
+                'content': content
+            })
             // dialogVisible.value = false
             handleCancel()
         } else {
