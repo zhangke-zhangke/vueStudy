@@ -125,9 +125,17 @@ vite.config.js（文件，对后端接口做处理转换。）
 
 
 
+-----------------js 文件导出注意------------------------------------------
 
+在.js文件定义的变量，需要导出（export）后才能够在其他文件中使用。
+    1、命名导出（多变量可以一起导出）：
+		export const xxx = []   
+		对应其他文件引入使用：import { xxx } from 'xxx.js'
 
-
+    2、默认导出（只能导出xxx）：
+		const xxx = []
+		export default xxx   
+		对应其他文件引入使用：import xxx from 'xxx.js'
 
 
 
