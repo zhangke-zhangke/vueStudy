@@ -104,11 +104,25 @@ vite.config.js（文件，对后端接口做处理转换。）
 
 1、适用场景
 	子组件(child)使用内置方法创建props
-	const props = defineProps({
-		title: String,
-		count: Number
-	})
-	
+		1、第一种写法，没有任何检查
+			const props = defineProps(['title', 'count'])
+		2、第二种写法，有类型检查
+			const props = defineProps({
+				title: String,
+				count: Number
+			})
+		3、第三种写法，有类型检查、默认值
+			const props = defineProps({
+			    title: {
+			        type: String,
+			        default: '我是默认的title'
+			    },
+			    count: {
+			        type: Number,
+			        default: 0
+			    }
+			})
+		
 	父组件引入子组件，并传入参数
 	import child from 'src/components/childComponents/child.vue'
 	
@@ -136,6 +150,43 @@ vite.config.js（文件，对后端接口做处理转换。）
 		const xxx = []
 		export default xxx   
 		对应其他文件引入使用：import xxx from 'xxx.js'
+
+
+
+------------------------------箭头函数-------------------------------------------
+
+const xxx = ref(123)
+
+无参数单返值：
+	() => xxx.value
+	() => {
+		return xxx.value	
+	}
+
+单参数单返值:
+	p1 => xxx.value
+
+多参数：
+	(p1, p2) => xxx.value
+
+
+------------------------------扩展运算--------------------------------------------
+
+const listA = ['1', '2', '3']
+const listB = ['1', '2', '3']
+
+const function f1(a, b, c) {
+}
+
+const function f2(a, b, c, d) {
+}
+
+1、合并数组
+const concatList = [...listA, ...listB]
+
+2、解构
+f1(...listA)
+f2(1, ...listB)
 
 
 

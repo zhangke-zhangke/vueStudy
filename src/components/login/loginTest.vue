@@ -34,6 +34,7 @@
   import { useRoute, useRouter } from 'vue-router';
   import { ElMessage } from 'element-plus';
   import { useUserStore } from '@/stores/userStore.js';
+  import { layoutLogin } from '@/api/layoutComApi';
   
   const store = useUserStore()
 
@@ -69,14 +70,12 @@
 
   function userLogin (){
     loading.value = true
-    axios.post('http://172.16.30.107:5000/login', loginParams)
-    .then((res) => {
+    layoutLogin(loginParams).then((res) => {
       store.setUserName(loginParams.userName)
-      console
 
       // 登录成功跳转页面路由
       ElMessage.success(`用户：${store.userName}，欢迎回来！`)
-      router.push({ name: 'handle'})
+      router.push({ name: 'layout', params: { isLogin: true }})
     })
     .catch(() => {
       ElMessage.error('用户名或密码错误！')
