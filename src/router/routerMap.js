@@ -100,6 +100,12 @@ import layout from '@/components/layout/index.vue'
         name: 'blogDetail',
         component: () => import('@/components/blog/components/blogDetailInfo.vue')
     },
+    // 学习 defineModel
+    {
+        path: '/defineModel',
+        name: 'defineModel',
+        component: () => import('@/components/study/v_model/index.vue')
+    },
  ]
 
 
